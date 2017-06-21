@@ -4,7 +4,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
     data: {
       people: [],
       newPersonName: '',
-      newPersonBio: ''
+      newPersonBio: '',
+      errors: []
     },
     mounted: function() {
       $.get('/api/v1/people.json', function(peopleResponse) {
@@ -16,6 +17,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
           person.bioVisible = !person.bioVisible;
       },
       addPerson: function() {
+        this.errors = [];
         var params = {
                          name: this.newPersonName,
                          bio: this.newPersonBio
@@ -24,6 +26,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
           this.people.push(newPerson);
           this.newPersonName = '';
           this.newPersonBio = '';
+        }.bind(this)).fail( function(response) {
+          this.errors = response.responseJSON.errors;
         }.bind(this));
       },
       deletePerson: function(person) {
