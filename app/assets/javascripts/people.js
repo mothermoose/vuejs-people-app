@@ -5,7 +5,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
       people: [],
       newPersonName: '',
       newPersonBio: '',
-      errors: []
+      errors: [],
+      nameFilter: ''
     },
     mounted: function() {
       $.get('/api/v1/people.json', function(peopleResponse) {
@@ -13,6 +14,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
       }.bind(this));
     },
     methods: {
+      isValidPerson: function(inputPerson) {
+        return inputPerson.name.indexOf(this.nameFilter) !== -1
+      },
       toggleBio: function(person) {
           person.bioVisible = !person.bioVisible;
       },

@@ -9,7 +9,11 @@
   <button v-on:click="addPerson()">Add Person</button>
 </div>
 
-  <div v-for="person in people">
+<div>
+  Search by Name: <input type="text" v-model="nameFilter">
+</div>
+
+  <div v-for="person in people" v-if="isValidPerson(person)">
     <h2 v-on:click="toggleBio(person)">{{ person.name }}</h2>
     <h2 v-if="person.bioVisible">
       {{ person.bio }}
