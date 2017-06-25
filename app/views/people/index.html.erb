@@ -10,10 +10,17 @@
 </div>
 
 <div>
-  Search by Name: <input type="text" v-model="nameFilter">
+<datalist id="names">
+  <option v-for="person in people">{{ person.name }}</option>
+</datalist>
+  Search by Name: <input type="text" v-model="nameFilter" list="names">
+</div>
+<div>
+  <button v-on:click="setSortAttribute('name')">Sort by Name</button>
+  <button v-on:click="setSortAttribute('bio')">Sort by Bio</button>
 </div>
 
-  <div v-for="person in people" v-if="isValidPerson(person)">
+  <div v-for="person in modifiedPeople" v-if="isValidPerson(person)">
     <h2 v-on:click="toggleBio(person)">{{ person.name }}</h2>
     <h2 v-if="person.bioVisible">
       {{ person.bio }}
