@@ -20,13 +20,15 @@
   <button v-on:click="setSortAttribute('bio')">Sort by Bio</button>
 </div>
 
-  <div v-for="person in modifiedPeople" v-if="isValidPerson(person)">
+<transition-group name="slide-left">
+  <div v-for="person in modifiedPeople" v-if="isValidPerson(person)" v-bind:key="person.id">
     <h2 v-on:click="toggleBio(person)">{{ person.name }}</h2>
     <h2 v-if="person.bioVisible">
       {{ person.bio }}
       <button v-on:click="deletePerson(person)">delete</button>
     </h2>
   </div>
+</transition-group>
 
   <h4>Total number of people: {{ people.length }}</h4>
 </div>
